@@ -2,13 +2,15 @@
 
 import tweepy
 import json
-
+import os
 
 # authentication
 ################
 
 # read credentials
-with open('credentials', 'r') as f:
+twan_dir = os.path.expanduser('~') + '/.twan/'
+
+with open(twan_dir + 'credentials', 'r') as f:
     credentials = [line.strip() for line in f if line.strip() != '']    # read the credentials line by line
 
 creds = {}                                      # initialize a dictionary for storing the credentials
