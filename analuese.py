@@ -49,6 +49,8 @@ def getMyTweets(numberOfTweets):
         tweets.append(status.text)
     return tweets 
 
+### search ###
+
 def twitSearch(keyword, numberOfTweets):
     '''
     makes a search on twitter, returns a list with the json-data from the twitter api
@@ -72,8 +74,22 @@ def twitSearchAndSave(keyword, numberOfTweets, datafile):
             myfile.write("\n")
     return tweets
 
+### get thread ###
 
-### get followers ###
+# suppose we have one tweet and want to reconstruct the whole thread that it's part of
+# get the upper part of the tree (only the thread that this tweet is a part of (keine nebenäste)
+# get all replies to the tweet down to the end of the tree that our tweet is the base node of
+    # get replies to one tweet
+    # get the replies to these replies etc. 
+
+# get the upper part of the tree (only the thread that this tweet is a part of (keine nebenäste)
+def thread_up(tweet_id):
+    '''
+    loads all tweets in a thread that are above the given tweet (but not the whole tree, only the thread that leads to this particular tweet)
+    returns the thread as a nested dictionary
+    '''
+
+### get contacts ###
 
 def getFollowers(ID, user_id = False):
     '''
