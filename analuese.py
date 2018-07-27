@@ -75,6 +75,7 @@ def twitSearchAndSave(keyword, numberOfTweets, datafile):
     return tweets
 
 ### get thread ###
+##################
 
 # suppose we have one tweet and want to reconstruct the whole thread that it's part of
 # get the upper part of the tree (only the thread that this tweet is a part of (keine nebenäste)
@@ -83,13 +84,17 @@ def twitSearchAndSave(keyword, numberOfTweets, datafile):
     # get the replies to these replies etc. 
 
 # get the upper part of the tree (only the thread that this tweet is a part of (keine nebenäste)
-def thread_up(tweet_id):
+def thread_up(tweet):
     '''
     loads all tweets in a thread that are above the given tweet (but not the whole tree, only the thread that leads to this particular tweet)
     returns the thread as a nested dictionary
     '''
+#    if tweet['in_reply_to_status_id'] != None:
+
+
 
 ### get contacts ###
+###################
 
 def getFollowers(ID, user_id = False):
     '''
