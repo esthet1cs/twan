@@ -20,6 +20,9 @@ parser.add_argument('searchphrase',
 parser.add_argument('-s', '--save_dir',
         help = 'Specify the directory where your data should be saved.')
 
+parser.add_argument('c', '--credentials',
+        help = 'Specify the directory with your Twitter credentials. The script expects a file named "credentials" in this directory.')
+
 args = parser.parse_args()
 
 
@@ -28,7 +31,10 @@ args = parser.parse_args()
 ################
 
 # read credentials
-twan_dir = os.path.expanduser('~') + '/.twan/'
+if args.credentials:
+    twan_dir = args.credentials
+else:
+    twan_dir = os.path.expanduser('~') + '/.twan/'
 
 with open(twan_dir + 'credentials', 'r') as f:
     credentials = [line.strip() for line in f if line.strip() != '']    # read the credentials line by line
