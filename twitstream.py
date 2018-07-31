@@ -20,8 +20,8 @@ parser.add_argument('searchphrase', nargs='+',
 parser.add_argument('-s', '--save_dir',
         help = 'Specify the directory where your data should be saved.')
 
-parser.add_argument('c', '--credentials',
-        help = 'Specify the directory with your Twitter credentials. The script expects a file named "credentials" in this directory.')
+parser.add_argument('-c', '--credentials',
+        help = 'Specify the directory with your Twitter credentials. The script expects a file named credentials in this directory.')
 
 args = parser.parse_args()
 
