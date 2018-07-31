@@ -5,6 +5,24 @@ import json
 import os
 from tweepy import Stream
 from tweepy.streaming import StreamListener
+import argparse
+
+# args
+######
+
+parser = argparse.ArgumentParser()
+
+## positional argument: searchphrases
+
+parser.add_argument('searchphrase',
+        help = 'You need to provide a searchphrase.')
+
+parser.add_argument('-s', '--save_dir',
+        help = 'Specify the directory where your data should be saved.')
+
+args = parser.parse_args()
+
+
 
 # authentication
 ################
@@ -29,10 +47,9 @@ def authenticate(consumer_key, consumer_secret, access_token, access_token_secre
     auth.set_access_token(access_token, access_token_secret)
     return auth 
 
-
 auth = authenticate(creds['consumer_key'], creds['consumer_secret'], creds['access_token'], creds['access_token_secret'])
-
  
+
 class MyListener(StreamListener):
  
     def on_data(self, data):
@@ -48,7 +65,7 @@ class MyListener(StreamListener):
         print(status)
         return True
 
-def stream_filtered(search_phrase):
+def stream_filtered(searchphrase):
     '''
     establish a stream using a search phrase, 
     that is stream all tweets containing that search phrase, e.g. a hashtag,
@@ -56,3 +73,7 @@ def stream_filtered(search_phrase):
     '''
     twitter_stream = Stream(auth, MyListener())
     twitter_stream.filter(track=[search_phrase])
+
+
+stream_filtered(args.searchphrase)
+
