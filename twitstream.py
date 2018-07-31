@@ -14,8 +14,8 @@ parser = argparse.ArgumentParser()
 
 ## positional argument: searchphrases
 
-parser.add_argument('searchphrase',
-        help = 'You need to provide a searchphrase.')
+parser.add_argument('searchphrase', nargs='+'
+        help = 'You need to provide at least one searchphrase.')
 
 parser.add_argument('-s', '--save_dir',
         help = 'Specify the directory where your data should be saved.')
