@@ -78,7 +78,7 @@ def stream_filtered(searchphrase):
     and save it in a file named datastream.json in the current directory
     '''
     twitter_stream = Stream(auth, MyListener())
-    twitter_stream.filter(track=[searchphrase])
+    twitter_stream.filter(track=searchphrase)
 
 
 stream_filtered(args.searchphrase)
