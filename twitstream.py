@@ -21,7 +21,7 @@ parser.add_argument('--save_dir',
         help = 'Specify the directory where your data should be saved.')
 
 parser.add_argument('-c', '--credentials',
-        help = 'Specify the directory with your Twitter credentials. The script expects a file named credentials in this directory.')
+        help = 'Specify the file that contains your Twitter app credentials. See the README for the required format. Specify the full path or the path relative to your working directory. Defaults to ~/.twan/credentials.')
 
 args = parser.parse_args()
 
@@ -32,11 +32,11 @@ args = parser.parse_args()
 
 # read credentials
 if args.credentials:
-    twan_dir = args.credentials
+    twan_credentials = args.credentials
 else:
     twan_dir = os.path.expanduser('~') + '/.twan/'
 
-with open(twan_dir + 'credentials', 'r') as f:
+with open(twan_credentials, 'r') as f:
     credentials = [line.strip() for line in f if line.strip() != '']    # read the credentials line by line
 
 creds = {}                                      # initialize a dictionary for storing the credentials
