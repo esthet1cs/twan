@@ -101,39 +101,52 @@ def getFollowers(ID, user_id = False):
     get the user_ids of all followers of a single user, either for her user_id or her screen name. If stated explicitly (boolean), the search will explicitly send the user_id, otherwise it's ID (can be screen_name or user_id);
     returns a list with the user_ids of all followers
     '''
-    if user_id:     # if we have a screen name and no ID, get the stuff using the screen-name
-        followers = tweepy.Cursor(api.followers_ids, user_id = ID).items()
-    else:
-        followers = tweepy.Cursor(api.followers_ids, id = ID).items()
+    try:
+        if user_id:     # if we have a screen name and no ID, get the stuff using the screen-name
+            followers = tweepy.Cursor(api.followers_ids, user_id = ID).items()
+        else:
+            followers = tweepy.Cursor(api.followers_ids, id = ID).items()
 
-    followerIDs = []
-    for follower in followers:
-        try:
-            followerIDs.append(follower)
-        except TweepError:
-            pass
-    if not followerIDs:                 # if we don't have any followers, mark that too so we know we have processed this user already.
-        followerIDs.append('NaN')
-    return followerIDs
+        followerIDs = []
+        for follower in followers:
+            try:
+                followerIDs.append(follower)
+            except TweepError:
+                pass
+        if not followerIDs:                 # if we don't have any followers, mark that too so we know we have processed this user already.
+            followerIDs.append('NaN')
+        return followerIDs
+    except tweepy.TweepError:
+        return []
 
 def getFriends(ID, user_id=False):
     '''
     get the IDs of all friends of a single user, using the api id (can be screen-name or user_id), force user_id for disambiguation
     returns a list with the users friends
     '''
-    if not user_id: 
-        friends = tweepy.Cursor(api.friends_ids, id = ID).items()
-    elif user_id:
-        friends = tweepy.Cursor(api.friends_ids, user_id = ID).items()
-    friendIDs = []
-    for friend in friends:
-        try:
-            friendIDs.append(friend)
-        except TweepError:
-            pass
-    if not friendIDs:
-        friendIDs.append('NaN')
-    return friendIDs
+    print('Loading Friends for User ', ID)
+    try:
+        if not user_id: 
+            friends = tweepy.Cursor(api.friends_ids, id = ID).items()
+        elif user_id:
+            friends = tweepy.Cursor(api.friends_ids, user_id = ID).items()
+        friendIDs = []
+        for friend in friends:
+            try:
+                print('   ' + str(friend))
+                friendIDs.append(friend)
+            except tweepy.TweepError:
+                print('blocked')
+                continue
+            except:
+                print('blocked, global error catch')
+                continue
+        if not friendIDs:
+            friendIDs.append('NaN')
+        return friendIDs
+    except tweepy.TweepError:                   # if we get an error while trying to retrieve friends (account might be geschuetzt or deleted), return []
+        print('blocked, function level')
+        return []
 
 def getContacts(ID, user_id=False):
     '''
