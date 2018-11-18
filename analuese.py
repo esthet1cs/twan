@@ -102,13 +102,16 @@ def getFollowers(ID, user_id = False):
     returns a list with the user_ids of all followers
     '''
     if user_id:     # if we have a screen name and no ID, get the stuff using the screen-name
-        followers = limit_handled(tweepy.Cursor(api.followers_ids, user_id = ID).items())
+        followers = tweepy.Cursor(api.followers_ids, user_id = ID).items()
     else:
-        followers = limit_handled(tweepy.Cursor(api.followers_ids, id = ID).items())
+        followers = tweepy.Cursor(api.followers_ids, id = ID).items()
 
     followerIDs = []
     for follower in followers:
-        followerIDs.append(follower)
+        try:
+            followerIDs.append(follower)
+        except TweepError:
+            pass
     if not followerIDs:                 # if we don't have any followers, mark that too so we know we have processed this user already.
         followerIDs.append('NaN')
     return followerIDs
@@ -119,12 +122,15 @@ def getFriends(ID, user_id=False):
     returns a list with the users friends
     '''
     if not user_id: 
-        friends = limit_handled(tweepy.Cursor(api.friends_ids, id = ID).items())
+        friends = tweepy.Cursor(api.friends_ids, id = ID).items()
     elif user_id:
-        friends = limit_handled(tweepy.Cursor(api.friends_ids, user_id = ID).items())
+        friends = tweepy.Cursor(api.friends_ids, user_id = ID).items()
     friendIDs = []
     for friend in friends:
-        friendIDs.append(friend)
+        try:
+            friendIDs.append(friend)
+        except TweepError:
+            pass
     if not friendIDs:
         friendIDs.append('NaN')
     return friendIDs
