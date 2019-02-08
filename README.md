@@ -15,7 +15,12 @@ The most interesting functions provided are probably these:
 - get all friend IDs for a given account
 - get both friend and follower IDs for a given account
 
-I wrote `analuese.py` for interactive use in an IPython shell. In order to use these functions, you need to provide the credentials in the format given in `credentials` in `~/.twan/credentials`.
+The code is mostly well commented.
+
+`analuese.py` is intended for use in an interactive IPython session. In order to use these functions, you need to provide the credentials in the format given in `credentials.example`. The script expects the credentials in `~/.twan/credentials`. 
+
+Attention: There are no safeguards to prevent overwriting existing files. 
+
 
 ### Streaming content to file
 
@@ -47,5 +52,11 @@ optional arguments:
                         Specify the full path or the path relative to your
                         working directory. Defaults to ~/.twan/credentials.
 ~~~
+
+## Installation
+
+After installing the dependencies using `pipenv` or `pip`, e.g. `pip install -r requirements.txt`, the scripts can be used as-is.
+
+`analuese.py` is just a file with some function and automated API authentication for convenient use in an IPython shell. `twitstream.py` is a script that can be used on any server console.
 
 
